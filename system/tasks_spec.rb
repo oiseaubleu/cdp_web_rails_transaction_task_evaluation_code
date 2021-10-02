@@ -242,13 +242,19 @@ RSpec.describe 'ログイン機能', type: :system do
 
   describe '機能要件' do
     describe 'ユーザを削除するリンクをクリックした際、確認ダイアログに「本当に削除してもよろしいですか？」という文字を表示させること' do
+      before do
+        visit new_session_path
+        find('input[name="session[email]"]').set(user.email)
+        find('input[name="session[password]"]').set(user.password)
+        click_button 'ログイン'
+      end
       it 'ユーザを削除するリンクをクリックした際、確認ダイアログに「本当に削除してもよろしいですか？」という文字を表示させること' do
         visit user_path(user)
         click_link '削除'
         expect(page.driver.browser.switch_to.alert.text).to eq '本当に削除してもよろしいですか？'
       end
     end
-        
+
     describe 'アカウントの登録や編集に失敗した場合、要件で示した条件通りにバリデーションメッセージを表示させること' do
       context 'アカウント登録画面' do
         it 'すべてフォームが未入力の場合のバリデーションメッセージ' do
