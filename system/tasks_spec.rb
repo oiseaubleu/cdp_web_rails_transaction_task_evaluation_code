@@ -241,7 +241,15 @@ RSpec.describe 'ログイン機能', type: :system do
   end
 
   describe '機能要件' do
-    describe '10.アカウントの登録や編集に失敗した場合、要件で示した条件通りにバリデーションメッセージを表示させること' do
+    describe 'ユーザを削除するリンクをクリックした際、確認ダイアログに「本当に削除してもよろしいですか？」という文字を表示させること' do
+      it 'ユーザを削除するリンクをクリックした際、確認ダイアログに「本当に削除してもよろしいですか？」という文字を表示させること' do
+        visit user_path(user)
+        click_link '削除'
+        expect(page.driver.browser.switch_to.alert.text).to eq '本当に削除してもよろしいですか？'
+      end
+    end
+        
+    describe 'アカウントの登録や編集に失敗した場合、要件で示した条件通りにバリデーションメッセージを表示させること' do
       context 'アカウント登録画面' do
         it 'すべてフォームが未入力の場合のバリデーションメッセージ' do
           visit new_user_path
@@ -330,7 +338,7 @@ RSpec.describe 'ログイン機能', type: :system do
       end
     end
 
-    describe '11.要件で示した条件通りにフラッシュメッセージを表示させること' do
+    describe '要件で示した条件通りにフラッシュメッセージを表示させること' do
       context 'アカウントの登録に成功した場合' do
         it '「アカウントを登録しました」というフラッシュメッセージを表示させること' do
           visit new_user_path
@@ -391,7 +399,7 @@ RSpec.describe 'ログイン機能', type: :system do
       end
     end
 
-    describe '13.ユーザとタスクにアソシエーションを組み、タスク一覧画面に自分が作成したタスクのみ表示させること' do
+    describe 'ユーザとタスクにアソシエーションを組み、タスク一覧画面に自分が作成したタスクのみ表示させること' do
       let!(:second_user) { User.create(name: 'second_user_name', email: 'second_user@email.com', password: 'password') }
       before do
         visit new_session_path
@@ -412,7 +420,7 @@ RSpec.describe 'ログイン機能', type: :system do
       end
     end
 
-    describe '14.ログインをせずにログイン画面とアカウント登録画面以外にアクセスした場合、ログインページに遷移させ「ログインしてください」というフラッシュメッセージを表示させること' do
+    describe 'ログインをせずにログイン画面とアカウント登録画面以外にアクセスした場合、ログインページに遷移させ「ログインしてください」というフラッシュメッセージを表示させること' do
       let!(:task){Task.create(title: 'task_title', content: 'task_content', user_id: user.id)}
       it 'タスク一覧画面にアクセスした場合' do
         visit tasks_path
@@ -446,7 +454,7 @@ RSpec.describe 'ログイン機能', type: :system do
       end
     end
 
-    describe '17.アカウントを削除した際、そのユーザに紐づいているすべてのタスクが削除されること' do
+    describe 'アカウントを削除した際、そのユーザに紐づいているすべてのタスクが削除されること' do
       before do
         visit new_session_path
         find('input[name="session[email]"]').set(user.email)
