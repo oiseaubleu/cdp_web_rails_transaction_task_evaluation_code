@@ -472,7 +472,7 @@ RSpec.describe 'デフォルトで実装されているタスク管理機能が�
   let!(:user) { User.create(name: 'user_name', email: 'user@email.com', password: 'password') }
   let!(:task) { Task.create(title: 'task_title', content: 'task_content', user_id: user.id) }
 
-  describe '' do
+  describe '＊ログイン機能の実装が完了した後、以下の項目をすべて満たすことを確認してください。' do
     before do
       visit new_session_path
       find('input[name="session[email]"]').set(user.email)
