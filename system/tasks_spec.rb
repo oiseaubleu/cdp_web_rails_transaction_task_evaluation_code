@@ -174,6 +174,7 @@ RSpec.describe 'ログイン機能', type: :system do
           expect(page).to have_content '名前'
           expect(page).to have_content 'メールアドレス'
           expect(page).to have_link '編集'
+          expect(page).to have_link '削除'
         end
         it 'アカウント編集画面' do
           visit edit_user_path(user)
@@ -212,6 +213,12 @@ RSpec.describe 'ログイン機能', type: :system do
           visit user_path(user)
           click_link '編集'
           expect(page).to have_content 'アカウント編集ページ'
+        end
+        it 'アカウント詳細画面の「削除」をクリックした場合、ページタイトルに「ログインページ」が表示される' do
+          visit user_path(user)
+          click_link '削除'
+          page.driver.browser.switch_to.alert.accept
+          expect(page).to have_content 'ログインページ'
         end
         it 'アカウントの編集に成功した場合、ページタイトルに「アカウント詳細ページ」が表示される' do
           visit edit_user_path(user)
