@@ -24,7 +24,7 @@ RSpec.describe "発注機能", type: :model do
       end
       threads.each(&:join)
     end
-    it "その商品の注文数が10個になること" do
+    it "その商品の注文数が合計10個になること" do
       expect(item.reload.total_quantity).to eq(5 + 5)
     end
   end
