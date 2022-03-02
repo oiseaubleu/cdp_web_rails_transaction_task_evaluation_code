@@ -1,5 +1,5 @@
 FactoryBot.define do
   factory :item do
-    name {'Factoryで作ったデフォルトの商品１'}
+    name {'item1'}
   end
 end
