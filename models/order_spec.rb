@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe "発注機能", type: :model do
+  pp User.all
+  
   let!(:user1){FactoryBot.create(:user)}
   let!(:user2){FactoryBot.create(:second_user)}
   let!(:item){FactoryBot.create(:item)}
